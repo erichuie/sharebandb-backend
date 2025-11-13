@@ -22,6 +22,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'pool_pre_ping': True,
+    'pool_size': 5,
+    'max_overflow': 10,
+    'pool_recycle': 300  # recycle connections every 5 minutes
+}
+
 ma = Marshmallow(app)
 connect_db(app)
 
